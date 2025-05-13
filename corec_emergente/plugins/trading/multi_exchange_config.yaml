@@ -1,0 +1,57 @@
+binance:
+  spot:
+    enabled: true
+    api_key: "BINANCE_SPOT_KEY"
+    api_secret: "BINANCE_SPOT_SECRET"
+    window: 60
+    prediction_interval: 300
+    nodo_count: 5
+    estrategia: "emergente"
+    altcoins: ["ALT1/USDT", "ALT2/USDT", "ALT3/USDT", "ALT4/USDT", "ALT5/USDT", "ALT6/USDT", "ALT7/USDT", "ALT8/USDT", "ALT9/USDT", "ALT10/USDT"]
+  futures:
+    enabled: true
+    api_key: "BINANCE_FUTURES_KEY"
+    api_secret: "BINANCE_FUTURES_SECRET"
+    leverage: 10
+    nodo_count: 5
+    estrategia: "emergente"
+    altcoins: ["ALT1/USDT", "ALT2/USDT", "ALT3/USDT", "ALT4/USDT", "ALT5/USDT", "ALT6/USDT", "ALT7/USDT", "ALT8/USDT", "ALT9/USDT", "ALT10/USDT"]
+kucoin:
+  spot:
+    enabled: true
+    api_key: "KUCOIN_SPOT_KEY"
+    api_secret: "KUCOIN_SPOT_SECRET"
+    window: 60
+    prediction_interval: 300
+    nodo_count: 5
+    estrategia: "emergente"
+    altcoins: ["ALT1/USDT", "ALT2/USDT", "ALT3/USDT", "ALT4/USDT", "ALT5/USDT", "ALT6/USDT", "ALT7/USDT", "ALT8/USDT", "ALT9/USDT", "ALT10/USDT"]
+  futures:
+    enabled: false
+bybit:
+  spot:
+    enabled: true
+    api_key: "BYBIT_SPOT_KEY"
+    api_secret: "BYBIT_SPOT_SECRET"
+    window: 60
+    prediction_interval: 300
+    nodo_count: 3
+    estrategia: "emergente"
+    altcoins: ["ALT1/USDT", "ALT2/USDT", "ALT3/USDT", "ALT4/USDT", "ALT5/USDT", "ALT6/USDT", "ALT7/USDT", "ALT8/USDT", "ALT9/USDT", "ALT10/USDT"]
+  futures:
+    enabled: true
+    api_key: "BYBIT_FUTURES_KEY"
+    api_secret: "BYBIT_FUTURES_SECRET"
+    leverage: 20
+    nodo_count: 4
+    estrategia: "emergente"
+    altcoins: ["ALT1/USDT", "ALT2/USDT", "ALT3/USDT", "ALT4/USDT", "ALT5/USDT", "ALT6/USDT", "ALT7/USDT", "ALT8/USDT", "ALT9/USDT", "ALT10/USDT"]
+capital_pool:
+  enabled: true
+  max_capital_active_pct: 0.6
+  max_users: 500
+  min_capital_per_user: 10.0
+  vigilancia_inicio: "00:00"
+  vigilancia_fin: "03:00"
+  cierre_hora: "23:55"
+  users_table: "users"
