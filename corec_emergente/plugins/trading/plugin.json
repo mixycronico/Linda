@@ -1,0 +1,115 @@
+{
+  "nombre": "trading",
+  "clase": "EntidadCoordinadorTrading",
+  "modulo": "corec_emergente.plugins.trading.coordinador_trading",
+  "descripcion": "Plugin modular para trading de criptomonedas con IA avanzada, gestión de usuarios y capital, integrado con el enjambre de CoreC Emergente.",
+  "dependencias": ["aioredis", "ccxt", "aiohttp", "pyyaml"],
+  "comandos_soportados": [
+    "iniciar backtest", "monitorear btc", "monitorear eth", "monitorear altcoins",
+    "ejecutar estrategia", "mostrar estado trading", "detener trading",
+    "asignar tareas multi-nodo", "cargar plantilla exchanges", "register_user",
+    "remove_user", "deposit_funds", "withdraw_funds", "allocate_trade", "settle_trade",
+    "evaluar_salud_simbolica"
+  ],
+  "entidades": [
+    {"nombre": "backtest_manager", "clase": "EntidadBacktestManager", "modulo": "corec_emergente.plugins.trading.entidad_backtest_manager"},
+    {"nombre": "btc_watcher", "clase": "EntidadBTCWatcher", "modulo": "corec_emergente.plugins.trading.entidad_btc_watcher"},
+    {"nombre": "eth_watcher", "clase": "EntidadETHWatcher", "modulo": "corec_emergente.plugins.trading.entidad_eth_watcher"},
+    {"nombre": "altcoin_watcher", "clase": "EntidadAltcoinWatcher", "modulo": "corec_emergente.plugins.trading.entidad_altcoin_watcher"},
+    {"nombre": "exchange_configurator", "clase": "EntidadExchangeConfigurator", "modulo": "corec_emergente.plugins.trading.entidad_exchange_configurator"},
+    {"nombre": "exchange_manager", "clase": "EntidadExchangeManager", "modulo": "corec_emergente.plugins.trading.entidad_exchange_manager"},
+    {"nombre": "ml_predictor", "clase": "EntidadMLPredictor", "modulo": "corec_emergente.plugins.trading.entidad_ml_predictor"},
+    {"nombre": "sync_strategy", "clase": "EntidadSyncStrategy", "modulo": "corec_emergente.plugins.trading.entidad_sync_strategy"},
+    {"nombre": "trading_monitor", "clase": "EntidadTradingMonitor", "modulo": "corec_emergente.plugins.trading.entidad_trading_monitor"},
+    {"nombre": "multi_nodo_coordinador", "clase": "EntidadCoordinacionMultiNodo", "modulo": "corec_emergente.plugins.trading.entidad_coordinacion_multi_nodo"},
+    {"nombre": "gestor_usuarios", "clase": "EntidadGestorUsuarios", "modulo": "corec_emergente.plugins.trading.entidad_gestor_usuarios"},
+    {"nombre": "gestor_capital_pool", "clase": "EntidadGestorCapitalPool", "modulo": "corec_emergente.plugins.trading.entidad_gestor_capital"},
+    {"nombre": "cierre_trading", "clase": "EntidadCierreTrading", "modulo": "corec_emergente.plugins.trading.entidad_cierre_trading"},
+    {"nombre": "reloj_trading", "clase": "EntidadRelojTrading", "modulo": "corec_emergente.plugins.trading.entidad_reloj_trading"},
+    {"nombre": "alpha_vantage_sync", "clase": "EntidadAlphaVantageSync", "modulo": "corec_emergente.plugins.trading.entidad_alpha_vantage_sync"}
+  ],
+  "config_default": {
+    "enabled": true,
+    "canales": [
+      "trading_comandos", "trading_respuestas", "trading_alertas", "trading_backtest",
+      "trading_btc", "trading_eth", "trading_altcoin", "trading_exchange", "trading_strategy",
+      "trading_monitor", "trading_multi_nodo", "config_exchange", "trading_capital",
+      "trading_clock", "trading_usuarios", "trading_macro", "alertas"
+    ],
+    "estado_persistente": true,
+    "persistencia_opcional": true,
+    "log_level": "INFO",
+    "destino_default": "trading",
+    "ciclo_intervalo": 20,
+    "postgres": {
+      "enabled": false,
+      "host": "localhost",
+      "port": 5432,
+      "database": "trading_db",
+      "user": "trading_user",
+      "password": "trading_pass"
+    },
+    "redis": {
+      "enabled": true,
+      "host": "localhost",
+      "port": 6379,
+      "db": 0
+    },
+    "backtest": {
+      "initial_capital": 1000,
+      "start_date": "2024-01-01",
+      "end_date": "2024-12-31"
+    },
+    "capital_pool": {
+      "max_capital_active_pct": 0.6,
+      "max_users": 500,
+      "min_capital_per_user": 10.0,
+      "capital_pool_table": "capital_pool",
+      "users_table": "users",
+      "metrics_table": "daily_metrics",
+      "vigilancia_inicio": "00:00",
+      "vigilancia_fin": "03:00",
+      "cierre_hora": "23:55",
+      "estado_file_capital": "estado_gestor_capital.json",
+      "estado_file_usuarios": "estado_gestor_usuarios.json"
+    },
+    "exchanges": [
+      {"name": "binance", "spot": {"enabled": true, "nodo_count": 5}, "futures": {"enabled": true, "leverage": 10, "nodo_count": 5}},
+      {"name": "kucoin", "spot": {"enabled": true, "nodo_count": 5}, "futures": {"enabled": false}},
+      {"name": "bybit", "spot": {"enabled": true, "nodo_count": 3}, "futures": {"enabled": true, "leverage": 20, "nodo_count": 4}}
+    ],
+    "circuit_breaker": {
+      "max_failures": 3,
+      "reset_timeout": 900
+    },
+    "btc_threshold_base": 0.01,
+    "alt_threshold_base": 0.015,
+    "capital": 1000,
+    "max_capital_pct_base": 0.6,
+    "ui_mode": "headless",
+    "multi_nodo": {
+      "nodo_count": 5,
+      "reassign_interval": 3600
+    },
+    "strategy": {
+      "atr_period": 14,
+      "atr_base_threshold": 0.005,
+      "stop_loss_pct": 0.03,
+      "performance_window": 3600,
+      "min_performance": 0.01
+    },
+    "macro_api": {
+      "alpha_vantage_key": "F0BH61XQ9KDFF90E",
+      "coinmarketcap_key": "TU_COINMARKETCAP_API_KEY",
+      "newsapi_key": "271a1e28d1ac4899a7b85684fdb13eeb",
+      "macro_schedule": {
+        "active_hours_start": "07:00",
+        "active_hours_end": "17:00",
+        "timezone": "America/New_York",
+        "fetch_interval_minutes": 5
+      }
+    },
+    "altcoins": ["ALT1/USDT", "ALT2/USDT", "ALT3/USDT", "ALT4/USDT", "ALT5/USDT", "ALT6/USDT", "ALT7/USDT", "ALT8/USDT", "ALT9/USDT", "ALT10/USDT"],
+    "auto_register_channels": true
+  }
+}
